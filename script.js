@@ -14,7 +14,7 @@ let gameStarted = false,
     gameOver= false,
     playerWon = false,
     dealerCards =[],
-    playercards= [],
+    playerCards= [],
     dealerScore = 0,
     playerScore = 0,
     deck =[];
@@ -34,7 +34,9 @@ newGameButton.addEventListener('click', function(){
   newGameButton.style.display='none';
   hitButton.style.display= 'inline';
   stayButton.style.display='inline';
+
   showStatus();
+  updateScores();
 
 });
 
@@ -66,11 +68,68 @@ function getCardString(card){
   return card.value + ' of ' + card.suit;
 }
 
+function updateScores(){
+  dealerScore= getScore(dealerCards);
+  playerScore= getScore(playerCards);
+  textArea.innerText += '\n' + dealerScore + '\n';
+  console.log('dealer score is: ' +dealerScore);
+  textArea.innerText += '\n' + playerScore + '\n';
+  console.log('player score is: ' + playerScore);
+}
+
+function getValue(card){
+  switch(card.value) {
+    case 'Ace':
+      return 1;
+    case 'Two':
+      return 2;
+    case 'Three':
+      return 3;
+    case 'Four':
+      return 4;
+    case 'Five':
+      return 5;
+    case 'Six':
+      return 6;
+    case 'Seven':
+     return 7;
+    case 'Eight':
+      return 8;
+    case 'Nine':
+       return 9;
+    default:
+    return 10;
+    // code block
+  }
+}
+
+function getScore(cardArray){
+  let score=0;
+
+  for (let i=0; i<cardArray.length; i++){
+    score +=getValue(cardArray[i]);
+  }
+  return score;
+
+}
+
 function showStatus(){
   if(!gameStarted){
     textArea.innerText = "welcome to BLACKJACK";
     return;
   }
+//Dealer Cards
+  let dealerCardString='';
+  for (let i=0; i<dealerCards.length; i++){
+    textArea.innerText += '\n' + getCardString(dealerCards[i]) + '\n'
+  }
+//player cards
+  let playerCardString='';
+  for (let i=0; i<playerCards.length; i++){
+    textArea.innerText += '\n' + getCardString(playerCards[i]) + '\n'
+  }
+
+  //Deck
   for (let i=0; i<deck.length; i++){
     textArea.innerText += '\n' + getCardString(deck[i]);
   }
