@@ -35,11 +35,25 @@ newGameButton.addEventListener('click', function(){
   hitButton.style.display= 'inline';
   stayButton.style.display='inline';
 
-  showStatus();
+  showStatus(gameStarted);
   updateScores();
+  let dealerCardString='';
+  for (let i=0; i<dealerCards.length; i++){
+    textArea.innerText += '\n' + getCardString(dealerCards[i]) + '\n'
+  }
+  textArea.innerText += '\n Dealer Score: (' + dealerScore + ')\n';
+
+  let playerCardString='';
+  for (let i=0; i<playerCards.length; i++){
+    textArea.innerText += '\n' + getCardString(playerCards[i]) + '\n'
+  }
+
+  textArea.innerText += '\n Player score: (' + playerScore + ')\n';
 
 });
+newGameButton.addEventListener('click', function(){
 
+});
 function createDeck() {
   let deck = [];
   for (let suitIdx=0; suitIdx<suits.length; suitIdx++){
@@ -71,10 +85,7 @@ function getCardString(card){
 function updateScores(){
   dealerScore= getScore(dealerCards);
   playerScore= getScore(playerCards);
-  textArea.innerText += '\n' + dealerScore + '\n';
-  console.log('dealer score is: ' +dealerScore);
-  textArea.innerText += '\n' + playerScore + '\n';
-  console.log('player score is: ' + playerScore);
+
 }
 
 function getValue(card){
@@ -119,18 +130,13 @@ function showStatus(){
     return;
   }
 //Dealer Cards
-  let dealerCardString='';
-  for (let i=0; i<dealerCards.length; i++){
-    textArea.innerText += '\n' + getCardString(dealerCards[i]) + '\n'
-  }
+
+
 //player cards
-  let playerCardString='';
-  for (let i=0; i<playerCards.length; i++){
-    textArea.innerText += '\n' + getCardString(playerCards[i]) + '\n'
-  }
+
 
   //Deck
-  for (let i=0; i<deck.length; i++){
-    textArea.innerText += '\n' + getCardString(deck[i]);
-  }
+//  for (let i=0; i<deck.length; i++){
+  //  textArea.innerText += '\n' + getCardString(deck[i]);
+//  }
 }
